@@ -14,7 +14,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@tehw0lf/neo-api": ["libs/neo-api/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
