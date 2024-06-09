@@ -1,1 +1,13 @@
-<p>xyz works!</p>
+<p>Please select your desired token and date to view the price!</p>
+
+<form #form="ngForm" (ngSubmit)="onSubmit(form)">
+  <app-x-token></app-x-token>
+  <app-y-time></app-y-time>
+  <button type="submit" class="btn btn-success" [disabled]="!form.form.valid">
+    Submit
+  </button>
+</form>
+<div class="result">
+  <!-- <app-z-price></app-z-price> -->
+  {{ result$ | async }}
+</div>
