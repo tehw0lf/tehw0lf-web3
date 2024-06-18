@@ -1,1 +1,11 @@
-<p>x-token works!</p>
+<label>
+  <span>Token</span>
+  <select ngModel name="token">
+    <option
+      *ngFor="let token of latestLivedataPrices$ | async"
+      [ngValue]="token.symbol"
+    >
+      {{ token.symbol }}
+    </option>
+  </select>
+</label>

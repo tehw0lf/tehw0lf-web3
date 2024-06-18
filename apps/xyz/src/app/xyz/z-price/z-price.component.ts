@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-z-price',
@@ -7,4 +8,6 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   templateUrl: './z-price.component.html',
 })
-export class ZPriceComponent {}
+export class ZPriceComponent {
+  @Input() price$: Observable<string> | null = null;
+}

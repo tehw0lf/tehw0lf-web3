@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
+import { LivedataPrice } from '@tehw0lf/neo-api';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-x-token',
@@ -7,4 +9,6 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   templateUrl: './x-token.component.html',
 })
-export class XTokenComponent {}
+export class XTokenComponent {
+  @Input() latestLivedataPrices$: Observable<LivedataPrice[]> | null = null;
+}
