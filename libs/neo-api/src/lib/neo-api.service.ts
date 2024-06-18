@@ -1,6 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError } from 'rxjs';
+import { Observable } from 'rxjs';
+
+import { LivedataPrice } from './neo-types';
 
 @Injectable({
   providedIn: 'root',
@@ -92,7 +94,7 @@ export class NeoApiService {
 
   // Flamingo Live Data
 
-  getFlamingoLivedataPricesLatest() {
+  getFlamingoLivedataPricesLatest(): Observable<LivedataPrice[]> {
     return this.fetchData('/flamingo/live-data/prices/latest', {});
   }
 
@@ -116,7 +118,9 @@ export class NeoApiService {
     );
   }
 
-  getFlamingoLivedataPricesFromtimestamp(timestamp: number) {
+  getFlamingoLivedataPricesFromtimestamp(
+    timestamp: number
+  ): Observable<LivedataPrice[]> {
     return this.fetchData(
       `/flamingo/live-data/prices/from-timestamp/${timestamp}`,
       {}
@@ -249,18 +253,13 @@ export class NeoApiService {
 
   // PRIVATE
 
-  fetchData(endpoint: string, params = {}) {
+  fetchData<X extends object>(endpoint: string, params = {}): Observable<X> {
     const httpParams = new HttpParams();
     Object.entries(params).forEach((param: [string, any]) =>
       httpParams.set(param[0], param[1])
     );
-    return this.http
-      .get(`${this.baseUrl}${endpoint}`, { params: httpParams })
-      .pipe(
-        catchError((error: any) => {
-          console.error('Error fetching data from URL:', endpoint, error);
-          throw error;
-        })
-      );
+    return this.http.get<X>(`${this.baseUrl}${endpoint}`, {
+      params: httpParams,
+    });
   }
 }
