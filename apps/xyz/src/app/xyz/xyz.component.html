@@ -1,0 +1,8 @@
+<p>Please select your desired token and date to view the price!</p>
+
+<form #form="ngForm" (ngSubmit)="price$ = onSubmit($event)">
+  <app-x-token></app-x-token>
+  <app-y-time></app-y-time>
+  <button type="submit" class="btn btn-success">Submit</button>
+  <app-z-price [price$]="price$"></app-z-price>
+</form>
