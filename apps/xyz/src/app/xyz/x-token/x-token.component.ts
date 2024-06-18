@@ -1,14 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
-import { LivedataPrice } from '@tehw0lf/neo-api';
+import { Component, inject } from '@angular/core';
+import { LivedataPrice, NeoApiService } from '@tehw0lf/neo-api';
 import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-x-token',
   standalone: true,
   imports: [CommonModule],
+  providers: [NeoApiService],
   templateUrl: './x-token.component.html',
 })
 export class XTokenComponent {
-  @Input() latestLivedataPrices$: Observable<LivedataPrice[]> | null = null;
+  private neoApiService: NeoApiService = inject(NeoApiService);
+  latestLivedataPrices$: Observable<LivedataPrice[]> =
+    this.neoApiService.getFlamingoLivedataPricesLatest();
 }

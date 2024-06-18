@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { LivedataPrice, NeoApiService } from '@tehw0lf/neo-api';
 import { catchError, map, mergeMap, Observable, of } from 'rxjs';
@@ -27,16 +27,8 @@ export type XyzFormData = {
   templateUrl: './xyz.component.html',
 })
 export class XyzComponent {
+  private neoApiService: NeoApiService = inject(NeoApiService);
   price$: Observable<string> | null = null;
-  latestLivedataPrices$: Observable<LivedataPrice[]> | null = null;
-
-  constructor(private neoApiService: NeoApiService) {
-    this.latestLivedataPrices$ = this.getLatestLivedataPrices();
-  }
-
-  getLatestLivedataPrices(): Observable<LivedataPrice[]> {
-    return this.neoApiService.getFlamingoLivedataPricesLatest();
-  }
 
   onSubmit(form: NgForm): Observable<string> | null {
     if (form.valid) {
