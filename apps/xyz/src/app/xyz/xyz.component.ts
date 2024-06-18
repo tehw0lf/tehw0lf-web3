@@ -9,8 +9,12 @@ import { YTimeComponent } from './y-time/y-time.component';
 import { ZPriceComponent } from './z-price/z-price.component';
 
 export type XyzFormData = {
-  token: string;
-  date: Date;
+  token: {
+    symbol: string;
+  };
+  date: {
+    date: Date;
+  };
 };
 
 @Component({
@@ -35,7 +39,7 @@ export class XyzComponent {
       const timestamp =
         form.value.date?.getTime() ?? new Date('06-18-2024 20:45').getTime();
 
-      this.price$ = this.neoApiService
+      return this.neoApiService
         .getFlamingoLivedataPricesFromtimestamp(timestamp)
         .pipe(
           mergeMap((res: LivedataPrice[]) =>

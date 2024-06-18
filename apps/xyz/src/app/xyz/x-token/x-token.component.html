@@ -1,11 +1,13 @@
-<label>
-  <span>Token</span>
-  <select ngModel name="token">
-    <option
-      *ngFor="let token of latestLivedataPrices$ | async"
-      [ngValue]="token.symbol"
-    >
-      {{ token.symbol }}
-    </option>
-  </select>
-</label>
+<fieldset ngModelGroup="token">
+  <div>
+    <label> Token: </label>
+    <select ngModel name="symbol">
+      <option
+        *ngFor="let token of latestLivedataPrices$ | async"
+        [ngValue]="token.symbol"
+      >
+        {{ token.symbol }}
+      </option>
+    </select>
+  </div>
+</fieldset>
